@@ -107,7 +107,7 @@ public class Fuzzer {
         return sb.toString();
     }
     public static String mutation_insert_random_char_extended(String input){
-        // random printable ASCII character (32-126)
+        // random printable ASCII extended character (128-255)
         char random_char = (char) (ThreadLocalRandom.current().nextInt(255-128)+128);
         int random_index = ThreadLocalRandom.current().nextInt(input.length()+1);
         
@@ -119,25 +119,36 @@ public class Fuzzer {
     
     public static String mutation_insert_existing_char(String input) {
         // get character
+        int random_src_index = ThreadLocalRandom.current().nextInt(input.length());
+        char random_char = input.charAt(random_src_index);
+
+        // insert random_char
+        int random_target_index = ThreadLocalRandom.current().nextInt(input.length());
+        StringBuilder sb = new StringBuilder(input);
+        sb.insert(random_target_index, random_char);
+
+        return sb.toString();
+    }
+
+    public static String mutation_repeat_char(String input) {
+        // get character
         int random_index = ThreadLocalRandom.current().nextInt(input.length());
         char random_char = input.charAt(random_index);
 
-        // insert random_char
         StringBuilder sb = new StringBuilder(input);
         sb.insert(random_index, random_char);
 
         return sb.toString();
     }
 
-    public static String mutation_repeat_char(String input) {
-        return "";
-    }
-
     public static String mutation_delete_char(String input) {
-        return "";
-    }
-    public static String mutation_swap_char(String input) {
-        return "";
+        // get character
+        int random_index = ThreadLocalRandom.current().nextInt(input.length());
+
+        StringBuilder sb = new StringBuilder(input);
+        sb.deleteCharAt(random_index);
+
+        return sb.toString();
     }
     
     private static String apply_mutation(String input) {
