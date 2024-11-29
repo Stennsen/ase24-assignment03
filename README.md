@@ -14,4 +14,6 @@ java Fuzzer.java "./html_parser_mac_universal" # or "html_parser_win_x86_64.exe"
 1: no argument provided
 2: failed to read seed file
 3: failed to find seed folder ./seeds/
+4: failed to execute command, that shall be fuzzed
+5: unexpected interruption of the command
 ```
