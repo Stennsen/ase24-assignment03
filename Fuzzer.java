@@ -7,7 +7,6 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.lang.reflect.Method;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Fuzzer {
@@ -15,7 +14,9 @@ public class Fuzzer {
     public static final List<Function<String, String>> REGISTERED_MUTATIONS = List.of(
         Fuzzer::mutation_insert_random_char,
         Fuzzer::mutation_insert_random_char_extended,
-        Fuzzer::mutation_insert_existing_char
+        Fuzzer::mutation_insert_existing_char,
+        Fuzzer::mutation_delete_char,
+        Fuzzer::mutation_repeat_char
     );
 
     public static void main(String[] args) {
@@ -76,7 +77,7 @@ public class Fuzzer {
         try {
             return Files.newBufferedReader(path, charset).toString();
         } catch (IOException e) {
-            System.exit(1);
+            System.exit(2);
             return "";
         }
     }
@@ -88,7 +89,7 @@ public class Fuzzer {
         try {
             seed_file_paths = Files.list(Paths.get(seed_folder));
         } catch (IOException e) {
-            System.exit(1);
+            System.exit(3);
         }
     
         return seed_file_paths
