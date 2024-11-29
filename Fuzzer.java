@@ -67,8 +67,14 @@ public class Fuzzer {
                 .map(line -> line + System.lineSeparator())
                 .collect(Collectors.joining());
     }
-
-    private static List<String> getMutatedInputs(String seedInput, Collection<Function<String, String>> mutat127-32
+    
+    private static List<String> getMutatedInputs(String seedInput, Collection<Function<String, String>> mutators) {
+        return List.of();
+    }
+    
+    private static String read_file_to_string(Path path, Charset charset) {
+        try {
+            return Files.newBufferedReader(path, charset).toString();
         } catch (IOException e) {
             System.exit(1);
             return "";
